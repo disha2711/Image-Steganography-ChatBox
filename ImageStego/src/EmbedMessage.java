@@ -125,10 +125,14 @@
  private void embedMessage() {
     String mess = message.getText();
     embeddedImage = sourceImage;
-    encode(embeddedImage, mess);
-    JLabel l = new JLabel(new ImageIcon(embeddedImage));
-    embeddedPane.getViewport().add(l);
-    this.validate();
+    if(encode(embeddedImage, mess)){
+        JLabel l = new JLabel(new ImageIcon(embeddedImage));
+        embeddedPane.getViewport().add(l);
+        this.validate();
+    }
+    else{
+        embeddedImage=null;
+    }
     }
  
  private void setImage() {
@@ -169,11 +173,11 @@
     sp.setDividerLocation(0.5);
     this.validate();
     }
- 	public void encode(BufferedImage img, String message)
+ 	public boolean encode(BufferedImage img, String message)
 	{
-		add_text(img,message);
+		return add_text(img,message);
 	}
-	private BufferedImage add_text(BufferedImage image, String text)
+	private boolean add_text(BufferedImage image, String text)
 	{
                 String s=secur;
                 text+=s;
@@ -190,8 +194,9 @@
 		catch(Exception e)
 		{
 			JOptionPane.showMessageDialog(null, "Target File cannot hold message!", "Error",JOptionPane.ERROR_MESSAGE);
+                        return false;
 		}
-		return image;
+		return true;
 	}
 	
 	private byte[] get_byte_data(BufferedImage image)
