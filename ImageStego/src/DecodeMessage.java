@@ -31,6 +31,7 @@
     this.getContentPane().add(p, BorderLayout.NORTH);
     open.addActionListener(this);
     decode.addActionListener(this);
+    decode.setEnabled(false);
     reset.addActionListener(this);
     open.setMnemonic('O');
     decode.setMnemonic('D');
@@ -83,8 +84,13 @@
  
  private void openImage() {
     try {   
+        if(image==null){
+            JOptionPane.showMessageDialog(this, "No message has been selected !");
+            return;
+        }
        JLabel l = new JLabel(new ImageIcon(image));
       imagePane.getViewport().add(l);
+      decode.setEnabled(true);
        this.validate();
        } catch(Exception ex) { ex.printStackTrace(); }
     }
@@ -158,7 +164,7 @@
 		catch(Exception e)
 		{
 			JOptionPane.showMessageDialog(null, 
-				"There is no hidden message in this image!","Error",
+				"Image not found !","Error",
 				JOptionPane.ERROR_MESSAGE);
 			return "";
 		}
