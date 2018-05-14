@@ -123,6 +123,10 @@
     }
  
  private void embedMessage() {
+     if(sourceImage==null){
+         JOptionPane.showMessageDialog(this, "Please choose an image !");
+         return;
+     }
     String mess = message.getText();
     embeddedImage = sourceImage;
     if(encode(embeddedImage, mess)){
